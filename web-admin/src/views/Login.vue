@@ -22,6 +22,7 @@
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import API from '@/api';
+import { ElMessage } from 'element-plus';
 
 const options = {
   background: {
@@ -95,8 +96,8 @@ const options = {
   detectRetina: true,
 };
 const loginForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
 });
 const loginFormRef = ref();
 const loginRules = reactive({
@@ -110,9 +111,11 @@ const submitForm = () => {
     if (valid) {
       const res = await API.user.login(loginForm);
       if (res.code === 0) {
-        localStorage.setItem('token', 'kerwin');
+        // localStorage.setItem('token', 'token');
         router.push('/index');
-      }
+      } else {
+        ElMessage.error(`${res.msg}`);
+      }  
     }
   });
 };
@@ -130,6 +133,7 @@ const submitForm = () => {
   color: white;
   text-align: center;
   padding: 20px;
+  border-radius: 5px;
 
   h3 {
     font-size: 30px;

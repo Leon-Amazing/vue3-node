@@ -15,28 +15,29 @@ instance.interceptors.request.use(config => {
 // 响应拦截器
 instance.interceptors.response.use(
   response => {
+    const { authorization } = response.headers;
+    authorization && localStorage.setItem('token', authorization);
     return response.data;
   },
   reason => {
+    const { status } = reason.response;
+    if (status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '#/login';
+    }
     return Promise.reject(reason);
   }
 );
 
 export function queryGET(url: string, params = {}, config: any = {}) {
   config.params = params;
-  return instance.get(url, config).then((data: any) => {
-    if (data.code == 0) {
-      return data;
-    }
-    return Promise.reject(data);
+  return instance.get(url, config).then((res: any) => {
+    return res;
   });
 }
 
 export function queryPOST(url: string, data: any, config = {}) {
   return instance.post(url, data, config).then((res: any) => {
-    if (res.code == 0) {
-      return res;
-    }
-    return Promise.reject(res);
+    return res;
   });
 }
