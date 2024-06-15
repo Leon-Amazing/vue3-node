@@ -7,13 +7,13 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login.vue'),
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/mainbox',
     name: 'mainbox',
-    component: () => import('@/views/MainBox.vue'),
-  },
+    component: () => import('@/views/MainBox.vue')
+  }
 ];
 
 const router = createRouter({
@@ -25,7 +25,7 @@ const router = createRouter({
       return savedPosition;
     }
     return { top: 0, behavior: 'smooth' };
-  },
+  }
 });
 
 //每次路由跳转之前
@@ -36,13 +36,13 @@ router.beforeEach((to, from, next) => {
   } else {
     if (!localStorage.getItem('token')) {
       next({
-        path: '/login',
+        path: '/login'
       });
     } else {
       if (!useTool.isGetterRouter) {
         ConfigRouter();
         next({
-          path: to.fullPath,
+          path: to.fullPath
         });
       } else {
         next();
@@ -54,9 +54,17 @@ router.beforeEach((to, from, next) => {
 const ConfigRouter = () => {
   const useTool = useToolStore();
   dynamicRoutes.forEach(item => {
-    router.addRoute('mainbox', item);
+    checkPermission(item) && router.addRoute('mainbox', item);
   });
   useTool.changeGetterRouter(true);
+};
+
+const checkPermission = (item: any) => {
+  const useTool = useToolStore() as any;
+  if (item.meta?.requireAdmin) {
+    return useTool.userInfo.role === 1;
+  }
+  return true;
 };
 
 export default router;

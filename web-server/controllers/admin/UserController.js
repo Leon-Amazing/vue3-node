@@ -34,7 +34,6 @@ const UserController = {
     }
   },
   upload: async (req, res) => {
-    console.log(req.body);
     const { username, introduction, gender } = req.body;
     const token = req.headers['authorization'].split(' ')[1];
     const avatar = req.file ? `/avataruploads/${req.file.filename}` : '';
@@ -67,6 +66,41 @@ const UserController = {
         }
       });
     }
+  },
+  add: async (req, res) => {
+    const { username, password, role, introduction, gender } = req.body;
+    const avatar = req.file ? `/avataruploads/${req.file.filename}` : '';
+    await UserService.add({
+      username,
+      introduction,
+      gender: Number(gender),
+      avatar,
+      role: Number(role),
+      password
+    });
+    res.send({
+      code: 0,
+      data: null
+    });
+  },
+  getList: async (req, res) => {
+    const result = await UserService.getList(req.body);
+    res.send({
+      code: 0,
+      data: result
+    });
+  },
+  putList: async (req, res) => {
+    const result = await UserService.putList(req.body);
+    res.send({
+      code: 0
+    });
+  },
+  delList: async (req, res) => {
+    const result = await UserService.delList(req.body);
+    res.send({
+      code: 0
+    });
   }
 };
 

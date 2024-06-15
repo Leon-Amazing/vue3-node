@@ -12,10 +12,16 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/user-manage/adduser',
     component: () => import('@/views/user-manage/UserAdd.vue'),
+    meta: {
+      requireAdmin: true
+    }
   },
   {
     path: '/user-manage/userlist',
     component: () => import('@/views/user-manage/UserList.vue'),
+    meta: {
+      requireAdmin: true
+    }
   },
 
   {
