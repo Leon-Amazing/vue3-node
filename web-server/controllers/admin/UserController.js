@@ -4,7 +4,6 @@ const JWT = require('../../utils/JWT');
 const UserController = {
   login: async (req, res) => {
     const result = await UserService.login(req.body);
-
     if (result.length === 0) {
       res.send({
         code: 1,
@@ -30,6 +29,41 @@ const UserController = {
           introduction: result[0].introduction, //简介
           avatar: result[0].avatar,
           role: result[0].role
+        }
+      });
+    }
+  },
+  upload: async (req, res) => {
+    console.log(req.body);
+    const { username, introduction, gender } = req.body;
+    const token = req.headers['authorization'].split(' ')[1];
+    const avatar = req.file ? `/avataruploads/${req.file.filename}` : '';
+    var payload = JWT.verify(token);
+    //调用service 模块更新 数据
+    await UserService.upload({
+      _id: payload._id,
+      username,
+      introduction,
+      gender: Number(gender),
+      avatar
+    });
+    if (avatar) {
+      res.send({
+        code: 0,
+        data: {
+          username,
+          introduction,
+          gender: Number(gender),
+          avatar
+        }
+      });
+    } else {
+      res.send({
+        code: 0,
+        data: {
+          username,
+          introduction,
+          gender: Number(gender)
         }
       });
     }

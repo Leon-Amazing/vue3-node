@@ -15,6 +15,6 @@ function get(url: string) {
 export default {
   user: {
     login: post('/adminapi/user/login'), //门店详情
-    detail: get('/adminapi/user/detail'), //获取指定商户的所有门店
-  },
+    upload: post('/adminapi/user/upload') // 更新个人信息
+  }
 };

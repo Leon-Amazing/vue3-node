@@ -27,12 +27,15 @@
 </template>
 <script setup lang="ts">
 import { useToolStore } from '@/store';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 const useTool = useToolStore();
 const router = useRouter();
-
-const avatar = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
+const avatar = computed(() =>
+  useTool.userInfo.avatar
+    ? 'http://localhost:3000' + useTool.userInfo.avatar
+    : `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`
+);
 
 const handleCollapsed = () => {
   useTool.changeCollapsed();

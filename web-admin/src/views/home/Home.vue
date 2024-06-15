@@ -37,7 +37,7 @@ import { useToolStore } from '@/store';
 const useTool = useToolStore();
 const avatarUrl = computed(() =>
   useTool.userInfo.avatar
-    ? useTool.userInfo.avatar
+    ? 'http://localhost:3000'+ useTool.userInfo.avatar
     : `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`
 );
 const welcomeText = computed(() =>

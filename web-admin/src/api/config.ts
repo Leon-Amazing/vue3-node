@@ -9,6 +9,8 @@ instance.defaults.validateStatus = status => {
 
 // 请求拦截器：向服务器发送请求之前
 instance.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
