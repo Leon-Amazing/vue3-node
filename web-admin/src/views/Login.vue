@@ -23,7 +23,9 @@ import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import API from '@/api';
 import { ElMessage } from 'element-plus';
+import { useToolStore } from '@/store';
 
+const useTool = useToolStore();
 const options = {
   background: {
     color: {
@@ -112,6 +114,7 @@ const submitForm = () => {
       const res = await API.user.login(loginForm);
       if (res.code === 0) {
         // localStorage.setItem('token', 'token');
+        useTool.changeUserInfo(res.data);
         router.push('/index');
       } else {
         ElMessage.error(`${res.msg}`);

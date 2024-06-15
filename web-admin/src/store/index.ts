@@ -15,6 +15,7 @@ export const useToolStore = defineStore('tool', {
     return {
       isGetterRouter: false,
       isCollapsed: false,
+      userInfo: {}
     };
   },
   actions: {
@@ -24,12 +25,21 @@ export const useToolStore = defineStore('tool', {
     changeCollapsed() {
       this.isCollapsed = !this.isCollapsed;
     },
+    changeUserInfo(value: Object) {
+      this.userInfo = {
+        ...this.userInfo,
+        ...value
+      };
+    },
+    clearUserInfo() {
+      this.userInfo = {};
+    }
   },
   persist: {
     key: 'tool',
     storage: localStorage,
-    paths: ['isCollapsed'],
-  },
+    paths: ['isCollapsed', 'userInfo']
+  }
 });
 
 export default store;
