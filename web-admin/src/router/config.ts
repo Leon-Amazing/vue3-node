@@ -46,6 +46,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/product-manage/ProductList.vue'),
   },
   {
+    path:"/product-manage/editproduct/:id",
+    component: () => import('@/views/product-manage/ProductEdit.vue'),
+  },
+  {
     path: '/',
     redirect: '/index',
   },

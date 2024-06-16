@@ -96,7 +96,11 @@ const handleUploadChange = file => {
 const submitForm = () => {
   newsFormRef.value.validate(async valid => {
     if (valid) {
-      const res = await API.news.update(newsForm);
+      const res = await API.news.update(newsForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       if (res.code === 0) {
         router.back();
       }

@@ -21,5 +21,11 @@ export default {
     delete: post('/adminapi/news/delete'), // 删除新闻
     update: post('/adminapi/news/update'), // 修改新闻
     publish: post('/adminapi/news/publish'), // 新闻发布
+  },
+  product: {
+    add: post('/adminapi/product/add'), // 添加产品
+    list: post('/adminapi/product/list'), // 产品列表
+    delete: post('/adminapi/product/delete'), // 删除产品
+    update: post('/adminapi/product/update'), // 修改产品
   }
 };

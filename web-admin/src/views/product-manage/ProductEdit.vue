@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-page-header content="添加产品" icon="" title="产品管理" />
+    <el-page-header content="编辑产品" @back="handleBack()" title="产品管理" />
 
     <el-form
       ref="productFormRef"
@@ -25,17 +25,18 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">添加产品</el-button>
+        <el-button type="primary" @click="submitForm()">更新产品</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, reactive } from 'vue';
+<script setup>
+import { ref, reactive, onMounted } from 'vue';
 import Upload from '@/components/Upload.vue';
 import API from '@/api';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+
 const productFormRef = ref();
 const productForm = reactive({
   title: '',
@@ -58,10 +59,11 @@ const handleChange = file => {
   productForm.file = file;
 };
 const router = useRouter();
+const route = useRoute();
 const submitForm = () => {
   productFormRef.value.validate(async valid => {
     if (valid) {
-      const res = await API.product.add(productForm, {
+      const res = await API.product.update(productForm, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -71,6 +73,23 @@ const submitForm = () => {
       }
     }
   });
+};
+
+const handleBack = () => {
+  router.back();
+};
+
+onMounted(() => {
+  getData();
+});
+
+const getData = async () => {
+  const res = await API.product.list({
+    _id: route.params.id
+  });
+  if (res.code === 0) {
+    Object.assign(productForm, res.data[0]);
+  }
 };
 </script>
 

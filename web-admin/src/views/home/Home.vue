@@ -21,9 +21,19 @@
           <span>公司产品</span>
         </div>
       </template>
-      <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <h3>{{ item }}</h3>
+      <el-carousel
+        :interval="4000"
+        type="card"
+        height="200px"
+        v-if="loopList.length">
+        <el-carousel-item v-for="item in loopList" :key="item._id">
+          <div
+            :style="{
+              backgroundImage: `url(http://localhost:3000${item.cover})`,
+              backgroundSize: 'cover'
+            }">
+            <h3>{{ item.title }}</h3>
+          </div>
         </el-carousel-item>
       </el-carousel>
     </el-card>
@@ -31,18 +41,31 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useToolStore } from '@/store';
+import API from '@/api';
 
+const loopList = ref([]);
 const useTool = useToolStore();
 const avatarUrl = computed(() =>
   useTool.userInfo.avatar
-    ? 'http://localhost:3000'+ useTool.userInfo.avatar
+    ? 'http://localhost:3000' + useTool.userInfo.avatar
     : `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`
 );
 const welcomeText = computed(() =>
   new Date().getHours() < 12 ? '要开心每一天.' : '喝杯咖啡提提神吧~'
 );
+
+const getData = async () => {
+  const res = await API.product.list({});
+  if (res.code === 0) {
+    loopList.value = res.data;
+  }
+};
+
+onMounted(() => {
+  getData();
+});
 </script>
 
 <style lang="scss" scoped>
