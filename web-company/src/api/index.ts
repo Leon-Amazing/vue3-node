@@ -1,4 +1,4 @@
-import { queryGET, queryPOST } from './config';
+import { queryPOST } from './config';
 
 function post(url: string) {
   return function (data: any, config = {}) {
@@ -6,15 +6,12 @@ function post(url: string) {
   };
 }
 
-function get(url: string) {
-  return function (params: any, config = {}) {
-    return queryGET(url, params, config);
-  };
-}
-
 export default {
-  user: {
-    login: post('/adminapi/user/login'), //门店详情
-    detail: get('/adminapi/user/detail'), //获取指定商户的所有门店
+  news: {
+    list: post('/webapi/news/list'),
+    toplist: post('/webapi/news/toplist')
   },
+  product: {
+    list: post('/webapi/product/list')
+  }
 };

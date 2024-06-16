@@ -13,6 +13,11 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/News.vue'),
   },
   {
+    path: '/news/:id',
+    name: 'new',
+    component: () => import('@/views/New.vue'),
+  },
+  {
     path: '/product',
     name: 'product',
     component: () => import('@/views/Product.vue'),

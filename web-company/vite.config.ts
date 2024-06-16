@@ -19,7 +19,7 @@ export default defineConfig(() => {
       force: true,
       proxy: {
         // 选项写法
-        '/adminapi': {
+        '/webapi': {
           target: 'http://localhost:3000',
           changeOrigin: true,
           rewrite: path => path.replace(/^\//, ''),

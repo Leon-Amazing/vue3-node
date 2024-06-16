@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-carousel height="calc(100vh - 59px)">
+    <el-carousel height="calc(100vh - 60px)">
       <el-carousel-item :key="1">
         <div :style="{ backgroundImage: `url(${img1})` }"></div>
       </el-carousel-item>
