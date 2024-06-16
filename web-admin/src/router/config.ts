@@ -32,6 +32,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/news-manage/newslist',
     component: () => import('@/views/news-manage/NewsList.vue'),
   },
+  {
+    path:"/news-manage/editnews/:id",
+    component: () => import('@/views/news-manage/NewsEdit.vue'),
+  },
 
   {
     path: '/product-manage/addproduct',

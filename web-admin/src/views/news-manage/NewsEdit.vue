@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-page-header content="创建新闻" icon="" title="新闻管理" />
+    <el-page-header content="编辑新闻" @back="handleBack()" title="新闻管理" />
     <el-form
       ref="newsFormRef"
       :model="newsForm"
@@ -11,7 +11,10 @@
         <el-input v-model="newsForm.title" />
       </el-form-item>
       <el-form-item label="内容" prop="content">
-        <Editor @event="handleChange" />
+        <Editor
+          @event="handleChange"
+          :content="newsForm.content"
+          v-if="newsForm.content" />
       </el-form-item>
 
       <el-form-item label="类别" prop="category">
@@ -29,24 +32,25 @@
       </el-form-item>
 
       <el-form-item label="封面" prop="cover">
-        <Upload :avatar="newsForm.cover" @uploadchange="handleUploadChange" />
+        <Upload :avatar="newsForm.cover" @kerwinchange="handleUploadChange" />
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">添加新闻</el-button>
+        <el-button type="primary" @click="submitForm()">更新新闻</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ref, reactive, onMounted } from 'vue';
 import Editor from '@/components/Editor.vue';
 import Upload from '@/components/Upload.vue';
 import API from '@/api';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+
 const router = useRouter();
+const route = useRoute();
 const newsFormRef = ref();
 const newsForm = reactive({
   title: '',
@@ -92,18 +96,24 @@ const handleUploadChange = file => {
 const submitForm = () => {
   newsFormRef.value.validate(async valid => {
     if (valid) {
-      const res = await API.news.add(newsForm, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const res = await API.news.update(newsForm);
       if (res.code === 0) {
-        ElMessage.success('添加成功~');
-        router.push(`/news-manage/newslist`);
+        router.back();
       }
     }
   });
 };
+
+const handleBack = () => {
+  router.back();
+};
+//取当前页面数据
+onMounted(async () => {
+  const res = await API.news.list({ _id: route.params.id });
+  if (res.code === 0) {
+    Object.assign(newsForm, res.data[0]);
+  }
+});
 </script>
 <style lang="scss" scoped>
 .el-form {

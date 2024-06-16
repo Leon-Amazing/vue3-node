@@ -13,11 +13,13 @@
     "@tsparticles/vue3": "^3.0.1",
     "axios": "^1.7.2",
     "element-plus": "^2.7.5",
+    "moment": "^2.30.1",
     "normalize.css": "^8.0.1",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "wangeditor": "^4.7.12"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",

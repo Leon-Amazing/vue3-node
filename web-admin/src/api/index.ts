@@ -14,5 +14,12 @@ export default {
     list: post('/adminapi/user/list'), // 用户列表
     delete: post('/adminapi/user/delete'), // 删除用户
     update: post('/adminapi/user/update') // 修改用户
+  },
+  news: {
+    add: post('/adminapi/news/add'), // 添加新闻
+    list: post('/adminapi/news/list'), // 新闻列表
+    delete: post('/adminapi/news/delete'), // 删除新闻
+    update: post('/adminapi/news/update'), // 修改新闻
+    publish: post('/adminapi/news/publish'), // 新闻发布
   }
 };
