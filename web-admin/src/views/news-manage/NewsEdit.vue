@@ -32,7 +32,7 @@
       </el-form-item>
 
       <el-form-item label="封面" prop="cover">
-        <Upload :avatar="newsForm.cover" @kerwinchange="handleUploadChange" />
+        <Upload :avatar="newsForm.cover" @uploadchange="handleUploadChange" />
       </el-form-item>
 
       <el-form-item>

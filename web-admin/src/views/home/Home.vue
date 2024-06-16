@@ -24,13 +24,16 @@
       <el-carousel
         :interval="4000"
         type="card"
-        height="200px"
+        height="400px"
         v-if="loopList.length">
         <el-carousel-item v-for="item in loopList" :key="item._id">
           <div
             :style="{
               backgroundImage: `url(http://localhost:3000${item.cover})`,
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              height: '100%'
             }">
             <h3>{{ item.title }}</h3>
           </div>
