@@ -5,7 +5,7 @@ const NewsController = {
     const result = await NewsService.getList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
   },
 
@@ -13,9 +13,9 @@ const NewsController = {
     const result = await NewsService.getTopList({ limit: req.body.limit });
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
-  }
+  },
 };
 
 module.exports = NewsController;

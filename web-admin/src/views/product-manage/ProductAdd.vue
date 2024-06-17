@@ -2,12 +2,7 @@
   <div>
     <el-page-header content="添加产品" icon="" title="产品管理" />
 
-    <el-form
-      ref="productFormRef"
-      :model="productForm"
-      :rules="productFormRules"
-      label-width="80px"
-      class="demo-ruleForm">
+    <el-form ref="productFormRef" :model="productForm" :rules="productFormRules" label-width="80px" class="demo-ruleForm">
       <el-form-item label="产品名称" prop="title">
         <el-input v-model="productForm.title" />
       </el-form-item>
@@ -42,29 +37,29 @@ const productForm = reactive({
   introduction: '',
   detail: '',
   cover: '',
-  file: null
+  file: null,
 });
 
 const productFormRules = reactive({
   title: [{ required: true, message: '请输入名字', trigger: 'blur' }],
   introduction: [{ required: true, message: '请输入简要描述', trigger: 'blur' }],
   detail: [{ required: true, message: '请输入详细描述', trigger: 'blur' }],
-  cover: [{ required: true, message: '请上传产品图片', trigger: 'blur' }]
+  cover: [{ required: true, message: '请上传产品图片', trigger: 'blur' }],
 });
 
 //每次选择完图片之后的回调
-const handleChange = file => {
+const handleChange = (file: any) => {
   productForm.cover = URL.createObjectURL(file);
   productForm.file = file;
 };
 const router = useRouter();
 const submitForm = () => {
-  productFormRef.value.validate(async valid => {
+  productFormRef.value.validate(async (valid: any) => {
     if (valid) {
       const res = await API.product.add(productForm, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
       if (res.code === 0) {
         router.push(`/product-manage/productlist`);

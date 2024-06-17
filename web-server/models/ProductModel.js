@@ -7,7 +7,7 @@ const ProductType = {
   introduction: String,
   detail: String,
   cover: String, //封面
-  editTime: Date
+  editTime: Date,
 };
 const ProductModel = mongoose.model('product', new Schema(ProductType));
 

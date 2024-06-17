@@ -28,30 +28,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-
 app.use(webNewsRouter);
 app.use(webProductRouter);
 /*
  * /adminapi - 后台系统用的
  * /webapi - 企业官网用的
  */
-app.use((req,res,next)=>{
-  if(req.url==="/adminapi/user/login"){
-    next()
+app.use((req, res, next) => {
+  if (req.url === '/adminapi/user/login') {
+    next();
     return;
   }
-  const token = req.headers["authorization"].split(" ")[1]
-  if(token){
-    const payload = JWT.verify(token)
+  const token = req.headers['authorization'].split(' ')[1];
+  if (token) {
+    const payload = JWT.verify(token);
     if (payload) {
-      const newToken = JWT.generate({
-        _id:payload._id,
-        username:payload.username
-      },"1d")
-      res.header("Authorization",newToken)
-      next()
+      const newToken = JWT.generate(
+        {
+          _id: payload._id,
+          username: payload.username,
+        },
+        '1d'
+      );
+      res.header('Authorization', newToken);
+      next();
     } else {
-      res.status(401).send({code:"401", msg:"token过期"})
+      res.status(401).send({ code: '401', msg: 'token过期' });
     }
   }
 });

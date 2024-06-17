@@ -7,14 +7,14 @@ const UserController = {
     if (result.length === 0) {
       res.send({
         code: 1,
-        msg: '用户名密码不匹配'
+        msg: '用户名密码不匹配',
       });
     } else {
       //生成token
       const token = JWT.generate(
         {
           _id: result[0]._id,
-          username: result[0].username
+          username: result[0].username,
         },
         '1d'
       );
@@ -28,8 +28,8 @@ const UserController = {
           gender: result[0].gender ? result[0].gender : 0, //性别 ,0,1,2
           introduction: result[0].introduction, //简介
           avatar: result[0].avatar,
-          role: result[0].role
-        }
+          role: result[0].role,
+        },
       });
     }
   },
@@ -44,7 +44,7 @@ const UserController = {
       username,
       introduction,
       gender: Number(gender),
-      avatar
+      avatar,
     });
     if (avatar) {
       res.send({
@@ -53,8 +53,8 @@ const UserController = {
           username,
           introduction,
           gender: Number(gender),
-          avatar
-        }
+          avatar,
+        },
       });
     } else {
       res.send({
@@ -62,8 +62,8 @@ const UserController = {
         data: {
           username,
           introduction,
-          gender: Number(gender)
-        }
+          gender: Number(gender),
+        },
       });
     }
   },
@@ -76,32 +76,32 @@ const UserController = {
       gender: Number(gender),
       avatar,
       role: Number(role),
-      password
+      password,
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
   getList: async (req, res) => {
     const result = await UserService.getList(req.body);
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
   },
   putList: async (req, res) => {
     const result = await UserService.putList(req.body);
     res.send({
-      code: 0
+      code: 0,
     });
   },
   delList: async (req, res) => {
     const result = await UserService.delList(req.body);
     res.send({
-      code: 0
+      code: 0,
     });
-  }
+  },
 };
 
 module.exports = UserController;

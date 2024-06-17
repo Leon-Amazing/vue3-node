@@ -1,10 +1,5 @@
 <template>
-  <el-upload
-    class="avatar-uploader"
-    action="/"
-    :show-file-list="false"
-    :auto-upload="false"
-    :on-change="handleChange">
+  <el-upload class="avatar-uploader" action="/" :show-file-list="false" :auto-upload="false" :on-change="handleChange">
     <img v-if="props.avatar" :src="uploadAvatar" class="avatar" />
     <el-icon v-else class="avatar-uploader-icon">
       <Plus />
@@ -18,15 +13,11 @@ import { defineEmits, defineProps, computed } from 'vue';
 //每次选择完图片之后的回调
 
 const props = defineProps({
-  avatar: String
+  avatar: String,
 });
 
 const emit = defineEmits(['uploadchange']);
-const uploadAvatar = computed(() =>
-  props.avatar.includes('blob')
-    ? props.avatar
-    : 'http://localhost:3000' + props.avatar
-);
+const uploadAvatar = computed(() => (props.avatar.includes('blob') ? props.avatar : 'http://localhost:3000' + props.avatar));
 const handleChange = file => {
   emit('uploadchange', file.raw);
 };

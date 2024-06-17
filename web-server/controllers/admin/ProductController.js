@@ -10,11 +10,11 @@ const ProductController = {
       introduction,
       detail,
       cover,
-      editTime: new Date()
+      editTime: new Date(),
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
   updateList: async (req, res) => {
@@ -26,19 +26,19 @@ const ProductController = {
       introduction,
       detail,
       cover,
-      editTime: new Date()
+      editTime: new Date(),
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
   getList: async (req, res) => {
-    console.log(req.body.id,'req.body.id');
+    console.log(req.body.id, 'req.body.id');
     const result = await ProductService.getList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
   },
 
@@ -46,9 +46,9 @@ const ProductController = {
     await ProductService.delList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
-  }
+  },
 };
 
 module.exports = ProductController;

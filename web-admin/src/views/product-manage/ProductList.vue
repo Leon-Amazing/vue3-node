@@ -15,16 +15,9 @@
 
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button
-              circle
-              :icon="Edit"
-              @click="handleEdit(scope.row)"></el-button>
+            <el-button circle :icon="Edit" @click="handleEdit(scope.row)"></el-button>
 
-            <el-popconfirm
-              title="你确定要删除吗?"
-              confirmButtonText="确定"
-              cancelButtonText="取消"
-              @confirm="handleDelete(scope.row)">
+            <el-popconfirm title="你确定要删除吗?" confirmButtonText="确定" cancelButtonText="取消" @confirm="handleDelete(scope.row)">
               <template #reference>
                 <el-button circle :icon="Delete" type="danger"></el-button>
               </template>
@@ -56,9 +49,9 @@ const getTableData = async () => {
 };
 
 //删除回调
-const handleDelete = async item => {
+const handleDelete = async (item: any) => {
   const res = await API.product.delete({
-    _id: item._id
+    _id: item._id,
   });
   if (res.code === 0) {
     getTableData();
@@ -66,7 +59,7 @@ const handleDelete = async item => {
 };
 
 //编辑回调
-const handleEdit = item => {
+const handleEdit = (item: any) => {
   router.push(`/product-manage/editproduct/${item._id}`);
 };
 </script>

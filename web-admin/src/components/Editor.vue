@@ -7,7 +7,7 @@ import E from 'wangeditor';
 const emit = defineEmits(['event']);
 
 const props = defineProps({
-  content: String
+  content: String,
 });
 onMounted(() => {
   const editor = new E('#myeditor');

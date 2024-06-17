@@ -15,7 +15,13 @@ export const useToolStore = defineStore('tool', {
     return {
       isGetterRouter: false,
       isCollapsed: false,
-      userInfo: {}
+      userInfo: {
+        username: '',
+        role: 0,
+        avatar: '',
+        gender: 0,
+        introduction: '',
+      },
     };
   },
   actions: {
@@ -28,18 +34,24 @@ export const useToolStore = defineStore('tool', {
     changeUserInfo(value: Object) {
       this.userInfo = {
         ...this.userInfo,
-        ...value
+        ...value,
       };
     },
     clearUserInfo() {
-      this.userInfo = {};
-    }
+      this.userInfo = {
+        username: '',
+        role: 0,
+        avatar: '',
+        gender: 0,
+        introduction: '',
+      };
+    },
   },
   persist: {
     key: 'tool',
     storage: localStorage,
-    paths: ['isCollapsed', 'userInfo']
-  }
+    paths: ['isCollapsed', 'userInfo'],
+  },
 });
 
 export default store;

@@ -24,12 +24,7 @@
             <span style="font-size: 16px; font-weight: bold">最近新闻</span>
           </div>
         </template>
-        <div
-          v-for="item in topNews"
-          :key="item._id"
-          class="text item"
-          style="padding: 14px"
-          @click="handleChange(item._id)">
+        <div v-for="item in topNews" :key="item._id" class="text item" style="padding: 14px" @click="handleChange(item._id)">
           <span>{{ item.title }}</span>
           <div class="bottom">
             <time class="time">{{ formatTime(item.editTime) }}</time>
@@ -54,13 +49,13 @@ const topNews = ref([]);
 const stop = watchEffect(async () => {
   if (!route.params.id) return;
   const res1 = await API.news.list({
-    _id: route.params.id
+    _id: route.params.id,
   });
   if (res1.code == 0) {
     currentNews.value = res1.data[0];
   }
   const res2 = await API.news.toplist({
-    limit: 4
+    limit: 4,
   });
   if (res1.code == 0) {
     topNews.value = res2.data;

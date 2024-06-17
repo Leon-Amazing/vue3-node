@@ -8,19 +8,11 @@ const NewsService = {
       category,
       cover,
       isPublish,
-      editTime
+      editTime,
     });
   },
 
-  updateList: async ({
-    _id,
-    title,
-    content,
-    category,
-    isPublish,
-    cover,
-    editTime
-  }) => {
+  updateList: async ({ _id, title, content, category, isPublish, cover, editTime }) => {
     if (cover) {
       return NewsModel.updateOne(
         { _id },
@@ -30,7 +22,7 @@ const NewsService = {
           category,
           isPublish,
           cover,
-          editTime
+          editTime,
         }
       );
     } else {
@@ -41,7 +33,7 @@ const NewsService = {
           content,
           category,
           isPublish,
-          editTime
+          editTime,
         }
       );
     }
@@ -52,21 +44,21 @@ const NewsService = {
   },
   delList: async ({ _id }) => {
     return NewsModel.deleteOne({
-      _id
+      _id,
     });
   },
 
   publish: async ({ _id, isPublish, editTime }) => {
     return NewsModel.updateOne(
       {
-        _id
+        _id,
       },
       {
         isPublish,
-        editTime
+        editTime,
       }
     );
-  }
+  },
 };
 
 module.exports = NewsService;

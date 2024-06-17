@@ -8,25 +8,16 @@
         <el-table-column label="头像" width="180">
           <template #default="scope">
             <div v-if="scope.row.avatar">
-              <el-avatar
-                :size="50"
-                :src="'http://localhost:3000' + scope.row.avatar"></el-avatar>
+              <el-avatar :size="50" :src="'http://localhost:3000' + scope.row.avatar"></el-avatar>
             </div>
             <div v-else>
-              <el-avatar
-                :size="50"
-                src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+              <el-avatar :size="50" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
             </div>
           </template>
         </el-table-column>
         <el-table-column label="角色">
           <template #default="scope">
-            <!-- {{scope.row.role===1?'管理员':'编辑'}}
-                       -->
-            <el-tag v-if="scope.row.role === 1" class="ml-2" type="danger"
-              >管理员</el-tag
-            >
-
+            <el-tag v-if="scope.row.role === 1" class="ml-2" type="danger">管理员</el-tag>
             <el-tag v-else class="ml-2" type="success">编辑</el-tag>
           </template>
         </el-table-column>
@@ -34,11 +25,7 @@
         <el-table-column label="操作">
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-popconfirm
-              title="你确定要删除吗?"
-              confirmButtonText="确定"
-              cancelButtonText="取消"
-              @confirm="handleDelete(scope.row)">
+            <el-popconfirm title="你确定要删除吗?" confirmButtonText="确定" cancelButtonText="取消" @confirm="handleDelete(scope.row)">
               <template #reference>
                 <el-button size="small" type="danger">删除</el-button>
               </template>
@@ -49,12 +36,7 @@
     </el-card>
 
     <el-dialog v-model="dialogVisible" title="编辑用户" width="50%">
-      <el-form
-        ref="userFormRef"
-        :model="userForm"
-        :rules="userFormRules"
-        label-width="80px"
-        class="demo-ruleForm">
+      <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" label-width="80px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="userForm.username" />
         </el-form-item>
@@ -63,16 +45,8 @@
         </el-form-item>
 
         <el-form-item label="角色" prop="role">
-          <el-select
-            v-model="userForm.role"
-            class="m-2"
-            placeholder="Select"
-            style="width: 100%">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value" />
+          <el-select v-model="userForm.role" class="m-2" placeholder="Select" style="width: 100%">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
 
@@ -97,27 +71,28 @@ import API from '@/api';
 const dialogVisible = ref(false);
 const userFormRef = ref();
 let userForm = reactive({
+  _id: '',
   username: '',
   password: '',
   role: 2, //1 是管理员 ,2编辑
-  introduction: ''
+  introduction: '',
 });
 const userFormRules = reactive({
   username: [{ required: true, message: '请输入名字', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   role: [{ required: true, message: '请选择权限', trigger: 'blur' }],
-  introduction: [{ required: true, message: '请输入介绍', trigger: 'blur' }]
+  introduction: [{ required: true, message: '请输入介绍', trigger: 'blur' }],
 });
 
 const options = [
   {
     label: '管理员',
-    value: 1
+    value: 1,
   },
   {
     label: '编辑',
-    value: 2
-  }
+    value: 2,
+  },
 ];
 const tableData = ref([]);
 onMounted(() => {
@@ -131,9 +106,9 @@ const getTableData = async () => {
   }
 };
 //编辑回调
-const handleEdit = async data => {
+const handleEdit = async (data: any) => {
   const res = await API.user.list({
-    id: data._id
+    id: data._id,
   });
   if (res.code === 0) {
     Object.assign(userForm, res.data[0]);
@@ -142,7 +117,7 @@ const handleEdit = async data => {
 };
 //编辑确认回调
 const handleEditConfirm = () => {
-  userFormRef.value.validate(async valid => {
+  userFormRef.value.validate(async (valid: any) => {
     if (valid) {
       const res = await API.user.update({ ...userForm, _id: userForm._id });
       if (res.code === 0) {
@@ -154,7 +129,7 @@ const handleEditConfirm = () => {
   });
 };
 
-const handleDelete = async data => {
+const handleDelete = async (data: any) => {
   const res = await API.user.delete({ _id: data._id });
   if (res.code === 0) {
     ElMessage.success('删除成功~');

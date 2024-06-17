@@ -10,7 +10,7 @@ const JWT = {
     } catch (e) {
       return false;
     }
-  }
+  },
 };
 
 module.exports = JWT;

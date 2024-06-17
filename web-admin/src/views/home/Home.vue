@@ -8,9 +8,7 @@
           <el-avatar :size="100" :src="avatarUrl" />
         </el-col>
         <el-col :span="20">
-          <h3 style="line-height: 100px">
-            欢迎 {{ useTool.userInfo.username || 'admin' }} 回来, {{ welcomeText }}
-          </h3>
+          <h3 style="line-height: 100px">欢迎 {{ useTool.userInfo.username || 'admin' }} 回来, {{ welcomeText }}</h3>
         </el-col>
       </el-row>
     </el-card>
@@ -21,19 +19,14 @@
           <span>公司产品</span>
         </div>
       </template>
-      <el-carousel
-        :interval="4000"
-        type="card"
-        height="400px"
-        v-if="loopList.length">
+      <el-carousel :interval="4000" type="card" height="400px" v-if="loopList.length">
         <el-carousel-item v-for="item in loopList" :key="item._id">
           <div
             :style="{
               backgroundImage: `url(http://localhost:3000${item.cover})`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              height: '100%'
+              height: '100%',
             }">
             <h3>{{ item.title }}</h3>
           </div>
@@ -48,16 +41,10 @@ import { computed, onMounted, ref } from 'vue';
 import { useToolStore } from '@/store';
 import API from '@/api';
 
-const loopList = ref([]);
+const loopList: any = ref([]);
 const useTool = useToolStore();
-const avatarUrl = computed(() =>
-  useTool.userInfo.avatar
-    ? 'http://localhost:3000' + useTool.userInfo.avatar
-    : `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`
-);
-const welcomeText = computed(() =>
-  new Date().getHours() < 12 ? '要开心每一天.' : '喝杯咖啡提提神吧~'
-);
+const avatarUrl = computed(() => (useTool.userInfo.avatar ? 'http://localhost:3000' + useTool.userInfo.avatar : `https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png`));
+const welcomeText = computed(() => (new Date().getHours() < 12 ? '要开心每一天.' : '喝杯咖啡提提神吧~'));
 
 const getData = async () => {
   const res = await API.product.list({});

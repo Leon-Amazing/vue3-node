@@ -1,14 +1,8 @@
 <template>
   <div>
-    <el-carousel
-      height="calc(100vh - 60px)"
-      direction="vertical"
-      :autoplay="false"
-      v-if="looplist.length">
+    <el-carousel height="calc(100vh - 60px)" direction="vertical" :autoplay="false" v-if="looplist.length">
       <el-carousel-item v-for="item in looplist" :key="item._id">
-        <div
-          class="item"
-          :style="{ backgroundImage: `url(http://localhost:3000${item.cover})` }">
+        <div class="item" :style="{ backgroundImage: `url(http://localhost:3000${item.cover})` }">
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
@@ -35,7 +29,7 @@
 import { ref, onMounted } from 'vue';
 import API from '@/api';
 
-const looplist = ref([]);
+const looplist: any = ref([]);
 
 onMounted(async () => {
   const res = await API.product.list({});

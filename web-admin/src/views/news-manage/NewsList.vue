@@ -18,31 +18,16 @@
         </el-table-column>
         <el-table-column label="是否发布">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.isPublish"
-              :active-value="1"
-              :inactive-value="0"
-              @change="handleSwitchChange(scope.row)" />
+            <el-switch v-model="scope.row.isPublish" :active-value="1" :inactive-value="0" @change="handleSwitchChange(scope.row)" />
           </template>
         </el-table-column>
 
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button
-              circle
-              :icon="Star"
-              type="success"
-              @click="handlePreview(scope.row)"></el-button>
-            <el-button
-              circle
-              :icon="Edit"
-              @click="handleEdit(scope.row)"></el-button>
+            <el-button circle :icon="Star" type="success" @click="handlePreview(scope.row)"></el-button>
+            <el-button circle :icon="Edit" @click="handleEdit(scope.row)"></el-button>
 
-            <el-popconfirm
-              title="你确定要删除吗?"
-              confirmButtonText="确定"
-              cancelButtonText="取消"
-              @confirm="handleDelete(scope.row)">
+            <el-popconfirm title="你确定要删除吗?" confirmButtonText="确定" cancelButtonText="取消" @confirm="handleDelete(scope.row)">
               <template #reference>
                 <el-button circle :icon="Delete" type="danger"></el-button>
               </template>
@@ -72,7 +57,6 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
 import { formatTime } from '@/utils';
 import { Star, Edit, Delete, StarFilled } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
@@ -80,7 +64,7 @@ import API from '@/api';
 
 const router = useRouter();
 const tableData = ref([]);
-const previewData = ref({});
+const previewData: any = ref({});
 const dialogVisible = ref(false);
 onMounted(() => {
   getTableData();
@@ -94,15 +78,15 @@ const getTableData = async () => {
 };
 
 //格式化分类信息
-const categoryFormat = category => {
+const categoryFormat = (category: number) => {
   const arr = ['最新动态', '典型案例', '通知公告'];
   return arr[category - 1];
 };
 
-const handleSwitchChange = async item => {
+const handleSwitchChange = async (item: any) => {
   const res = await API.news.publish({
     _id: item._id,
-    isPublish: item.isPublish
+    isPublish: item.isPublish,
   });
   if (res.code === 0) {
     getTableData();
@@ -110,15 +94,15 @@ const handleSwitchChange = async item => {
 };
 
 //預覽回調
-const handlePreview = data => {
+const handlePreview = (data: any) => {
   previewData.value = data;
   dialogVisible.value = true;
 };
 
 //删除回调
-const handleDelete = async item => {
+const handleDelete = async (item: any) => {
   const res = await API.news.delete({
-    _id: item._id
+    _id: item._id,
   });
   if (res.code === 0) {
     getTableData();
@@ -126,7 +110,7 @@ const handleDelete = async item => {
 };
 
 //编辑回调
-const handleEdit = item => {
+const handleEdit = (item: any) => {
   router.push(`/news-manage/editnews/${item._id}`);
 };
 </script>

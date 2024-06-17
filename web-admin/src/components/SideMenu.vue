@@ -63,8 +63,8 @@ const route = useRoute();
     .el-menu-item.is-active {
       background-color: #1a5276;
       &:hover {
-        background-color: #1a5276;;
-      color: #ffffff;
+        background-color: #1a5276;
+        color: #ffffff;
       }
     }
     .el-menu-item:hover {

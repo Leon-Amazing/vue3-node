@@ -4,31 +4,31 @@ const UserService = {
   login: async ({ username, password }) => {
     return UserModel.find({
       username,
-      password
+      password,
     });
   },
   upload: async ({ _id, username, introduction, gender, avatar }) => {
     if (avatar) {
       return UserModel.updateOne(
         {
-          _id
+          _id,
         },
         {
           username,
           introduction,
           gender,
-          avatar
+          avatar,
         }
       );
     } else {
       return UserModel.updateOne(
         {
-          _id
+          _id,
         },
         {
           username,
           introduction,
-          gender
+          gender,
         }
       );
     }
@@ -40,20 +40,18 @@ const UserService = {
       gender,
       avatar,
       password,
-      role
+      role,
     });
   },
   getList: async ({ id }) => {
-    return id
-      ? UserModel.find({ _id: id }, ['username', 'role', 'introduction', 'password'])
-      : UserModel.find({}, ['username', 'role', 'avatar', 'introduction', 'gender']);
+    return id ? UserModel.find({ _id: id }, ['username', 'role', 'introduction', 'password']) : UserModel.find({}, ['username', 'role', 'avatar', 'introduction', 'gender']);
   },
   putList: async body => {
     return UserModel.updateOne({ _id: body._id }, body);
   },
   delList: async ({ _id }) => {
     return UserModel.deleteOne({ _id });
-  }
+  },
 };
 
 module.exports = UserService;

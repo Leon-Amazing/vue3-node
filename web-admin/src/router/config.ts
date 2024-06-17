@@ -13,15 +13,15 @@ const routes: Array<RouteRecordRaw> = [
     path: '/user-manage/adduser',
     component: () => import('@/views/user-manage/UserAdd.vue'),
     meta: {
-      requireAdmin: true
-    }
+      requireAdmin: true,
+    },
   },
   {
     path: '/user-manage/userlist',
     component: () => import('@/views/user-manage/UserList.vue'),
     meta: {
-      requireAdmin: true
-    }
+      requireAdmin: true,
+    },
   },
 
   {
@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/news-manage/NewsList.vue'),
   },
   {
-    path:"/news-manage/editnews/:id",
+    path: '/news-manage/editnews/:id',
     component: () => import('@/views/news-manage/NewsEdit.vue'),
   },
 
@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/product-manage/ProductList.vue'),
   },
   {
-    path:"/product-manage/editproduct/:id",
+    path: '/product-manage/editproduct/:id',
     component: () => import('@/views/product-manage/ProductEdit.vue'),
   },
   {

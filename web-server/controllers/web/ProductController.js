@@ -5,9 +5,9 @@ const ProductController = {
     const result = await ProductService.getList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
-  }
+  },
 };
 
 module.exports = ProductController;

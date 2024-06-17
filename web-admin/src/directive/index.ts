@@ -8,6 +8,6 @@ export const setupDirective = (app: App<Element>) => {
       if (useTool.userInfo.role !== 1) {
         el.parentNode?.removeChild(el);
       }
-    }
+    },
   });
 };

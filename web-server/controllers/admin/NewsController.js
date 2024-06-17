@@ -11,11 +11,11 @@ const NewsController = {
       category: Number(category),
       isPublish: Number(isPublish),
       cover,
-      editTime: new Date()
+      editTime: new Date(),
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
   updateList: async (req, res) => {
@@ -28,18 +28,18 @@ const NewsController = {
       category: Number(category),
       isPublish: Number(isPublish),
       cover,
-      editTime: new Date()
+      editTime: new Date(),
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
   getList: async (req, res) => {
     const result = await NewsService.getList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: result
+      data: result,
     });
   },
 
@@ -47,20 +47,20 @@ const NewsController = {
     await NewsService.delList({ _id: req.body._id });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
   },
 
   publish: async (req, res) => {
     await NewsService.publish({
       ...req.body,
-      editTime: new Date()
+      editTime: new Date(),
     });
     res.send({
       code: 0,
-      data: null
+      data: null,
     });
-  }
+  },
 };
 
 module.exports = NewsController;

@@ -2,12 +2,7 @@
   <div>
     <el-page-header content="添加用户" icon="" title="用户管理" />
 
-    <el-form
-      ref="userFormRef"
-      :model="userForm"
-      :rules="userFormRules"
-      label-width="80px"
-      class="demo-ruleForm">
+    <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" label-width="80px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="userForm.username" />
       </el-form-item>
@@ -16,16 +11,8 @@
       </el-form-item>
 
       <el-form-item label="角色" prop="role">
-        <el-select
-          v-model="userForm.role"
-          class="m-2"
-          placeholder="Select"
-          style="width: 100%">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value" />
+        <el-select v-model="userForm.role" class="m-2" placeholder="Select" style="width: 100%">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
 
@@ -59,7 +46,7 @@ const userForm = reactive({
   introduction: '',
   avatar: '',
   file: null,
-  gender: 0 //保密
+  gender: 0, //保密
 });
 
 const userFormRules = reactive({
@@ -67,33 +54,33 @@ const userFormRules = reactive({
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   role: [{ required: true, message: '请选择权限', trigger: 'blur' }],
   introduction: [{ required: true, message: '请输入介绍', trigger: 'blur' }],
-  avatar: [{ required: true, message: '请上传头像', trigger: 'blur' }]
+  avatar: [{ required: true, message: '请上传头像', trigger: 'blur' }],
 });
 
 const options = [
   {
     label: '管理员',
-    value: 1
+    value: 1,
   },
   {
     label: '编辑',
-    value: 2
-  }
+    value: 2,
+  },
 ];
 
 //每次选择完图片之后的回调
-const handleChange = file => {
+const handleChange = (file: any) => {
   userForm.avatar = URL.createObjectURL(file);
   userForm.file = file;
 };
 const router = useRouter();
 const submitForm = () => {
-  userFormRef.value.validate(async valid => {
+  userFormRef.value.validate(async (valid: any) => {
     if (valid) {
       const res = await API.user.add(userForm, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
       if (res.code === 0) {
         ElMessage.success('添加成功~');

@@ -7,7 +7,7 @@ const ProductService = {
       introduction,
       detail,
       cover,
-      editTime
+      editTime,
     });
   },
 
@@ -20,7 +20,7 @@ const ProductService = {
           introduction,
           detail,
           cover,
-          editTime
+          editTime,
         }
       );
     } else {
@@ -30,7 +30,7 @@ const ProductService = {
           title,
           introduction,
           detail,
-          editTime
+          editTime,
         }
       );
     }
@@ -42,9 +42,9 @@ const ProductService = {
 
   delList: async ({ _id }) => {
     return ProductModel.deleteOne({
-      _id
+      _id,
     });
-  }
+  },
 };
 
 module.exports = ProductService;
