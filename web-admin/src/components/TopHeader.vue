@@ -10,7 +10,7 @@
       <el-dropdown>
         <span class="el-dropdown-link">
           <el-avatar :size="30" :src="avatar" />
-          <span style="margin-left: 5px">admin</span>
+          <span style="margin-left: 5px"> {{ useTool.userInfo.username }}</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
